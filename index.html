@@ -5,10 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>چارت TradingView با ورود جیمیل</title>
   
-  <!-- قرار دادن Client ID گوگل (لطفاً مقدار زیر را جایگزین کنید) -->
-  <meta name="google-signin-client_id" content="497965959099-jabp20id01td7qttl6nfal6cmqev1iup.apps.googleusercontent.com">
+  <!-- تنظیمات Content Security Policy (CSP) -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data:;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data:;">
   
-  <!-- لود کردن کتابخانه Google Sign-In -->
+  <!-- جایگزین Client ID واقعی خود کنید -->
+  <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
+  
+  <!-- لود کردن اسکریپت Google Sign-In -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
@@ -49,11 +56,7 @@
         "interval": "D",          // بازه زمانی (D برای روزانه)
         "container_id": "tv_chart_container",
         "datafeed": new TradingView.Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
-        "library_path": "/charting_library/", // در صورت استفاده از کتابخانه‌ی محلی باید مسیر صحیح را تنظیم کنید
-        "locale": "fa",
-        // در صورت نیاز می‌توانید ویژگی‌های غیرفعال یا فعال را تنظیم کنید:
-        "disabled_features": ["header_widget"],
-        "enabled_features": []
+        "locale": "fa"
       });
     }
   </script>
