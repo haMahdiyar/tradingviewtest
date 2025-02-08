@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چارت تریدینگ ویو با لاگین جیمیل</title>
+    <!-- قرار دادن Client ID گوگل -->
+    <meta name="google-signin-client_id" content="497965959099-rgfj7scha9t92u46ukfeoqt830sgsa1k.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+</head>
+<body>
+    <!-- دکمه لاگین با گوگل -->
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+    <div id="user-info" style="display:none;">
+        <h3>خوش آمدید، <span id="user-name"></span></h3>
+        <p>آدرس ایمیل شما: <span id="user-email"></span></p>
+        <div id="tv_chart_container" style="height: 600px;"></div>
+    </div>
+    
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var email = profile.getEmail();
+            var name = profile.getName();
+
+            document.getElementById('user-name').textContent = name;
+            document.getElementById('user-email').textContent = email;
+            document.getElementById('user-info').style.display = 'block';
+            document.querySelector('.g-signin2').style.display = 'none';
+
+            new TradingView.widget({
+                "autosize": true,
+                "symbol": "NASDAQ:AAPL",
+                "interval": "D",
+                "container_id": "tv_chart_container",
+                "datafeed": new TradingView.Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
+                "library_path": "/charting_library/",
+                "locale": "fa"
+            });
+        }
+    </script>
+</body>
+</html>
