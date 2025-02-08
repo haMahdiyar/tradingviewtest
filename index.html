@@ -3,62 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>چارت TradingView با ورود جیمیل</title>
-  
-  <!-- تنظیمات Content Security Policy (CSP) -->
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' https://www.gstatic.com 'unsafe-inline' 'unsafe-eval' blob: data:;
-    style-src 'self' 'unsafe-inline';
-    img-src 'self' data:;">
-  
-  <!-- جایگزین Client ID واقعی خود کنید -->
-  <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
-  
-  <!-- لود کردن اسکریپت Google Sign-In -->
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <title>چارت TradingView بدون نیاز به لاگین</title>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 </head>
 <body>
-  <!-- دکمه ورود با جیمیل -->
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  
-  <!-- بخش اطلاعات کاربر و چارت که بعد از ورود نمایش داده می‌شود -->
-  <div id="user-info" style="display: none;">
-    <h3>خوش آمدید، <span id="user-name"></span>!</h3>
-    <p>ایمیل شما: <span id="user-email"></span></p>
-    <!-- کانتینر چارت TradingView -->
-    <div id="tv_chart_container" style="height: 600px;"></div>
-  </div>
-  
-  <!-- لود کردن اسکریپت TradingView -->
-  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-  
+  <div id="tv_chart_container" style="height: 600px;"></div>
+
   <script type="text/javascript">
-    // تابعی که پس از ورود موفق با جیمیل اجرا می‌شود
-    function onSignIn(googleUser) {
-      // دریافت اطلاعات کاربری از شی googleUser
-      var profile = googleUser.getBasicProfile();
-      var name = profile.getName();
-      var email = profile.getEmail();
-      
-      // نمایش اطلاعات کاربر در صفحه
-      document.getElementById('user-name').textContent = name;
-      document.getElementById('user-email').textContent = email;
-      document.getElementById('user-info').style.display = 'block';
-      
-      // پنهان کردن دکمه ورود پس از ورود موفق
-      document.querySelector('.g-signin2').style.display = 'none';
-      
-      // راه‌اندازی و نمایش چارت TradingView
-      new TradingView.widget({
-        "autosize": true,
-        "symbol": "NASDAQ:AAPL",  // نماد مورد نظر (قابل تغییر)
-        "interval": "D",          // بازه زمانی (D برای روزانه)
-        "container_id": "tv_chart_container",
-        "datafeed": new TradingView.Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"),
-        "locale": "fa"
-      });
-    }
+    new TradingView.widget({
+      "autosize": true,            // اندازه خودکار چارت
+      "symbol": "NASDAQ:AAPL",     // نماد پیش‌فرض (می‌توانید آن را تغییر دهید)
+      "interval": "D",             // بازه زمانی (D برای روزانه)
+      "container_id": "tv_chart_container", // شناسه کانتینر
+      "datafeed": new TradingView.Datafeeds.UDFCompatibleDatafeed("https://demo_feed.tradingview.com"), // داده‌های دمو
+      "locale": "fa",              // زبان فارسی
+      "theme": "light",            // تم چارت (می‌توانید به "dark" تغییر دهید)
+      "enabled_features": ["study_templates"], // فعال کردن ویژگی‌های اضافی
+      "disabled_features": ["header_widget", "symbol_search"] // غیرفعال کردن ویژگی‌های اضافی
+    });
   </script>
+
 </body>
 </html>
